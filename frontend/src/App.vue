@@ -17,29 +17,39 @@
               <el-icon :size="32"><Document /></el-icon>
             </div>
             <h1 class="title gradient-text">
-              高校仪器预约系统
+              高校大型仪器设备共享服务平台
             </h1>
           </div>
           
-          <el-menu
-            :default-active="activeMenu"
-            mode="horizontal"
-            router
-            class="header-menu cute-menu"
-          >
-            <el-menu-item index="/laboratories" class="menu-item">
-              <el-icon><OfficeBuilding /></el-icon>
-              <span>实验室</span>
-            </el-menu-item>
-            <el-menu-item index="/equipment" class="menu-item">
-              <el-icon><Box /></el-icon>
-              <span>设备</span>
-            </el-menu-item>
-            <el-menu-item index="/reservations" class="menu-item">
-              <el-icon><Calendar /></el-icon>
-              <span>预约</span>
-            </el-menu-item>
-          </el-menu>
+          <div class="header-right">
+            <el-menu
+              :default-active="activeMenu"
+              mode="horizontal"
+              router
+              class="header-menu cute-menu"
+            >
+              <el-menu-item index="/" class="menu-item">
+                <el-icon><HomeFilled /></el-icon>
+                <span>首页</span>
+              </el-menu-item>
+              <el-menu-item index="/equipment" class="menu-item">
+                <el-icon><Box /></el-icon>
+                <span>仪器目录</span>
+              </el-menu-item>
+              <el-menu-item index="/help" class="menu-item">
+                <el-icon><QuestionFilled /></el-icon>
+                <span>帮助中心</span>
+              </el-menu-item>
+            </el-menu>
+            <div class="header-actions">
+              <el-button type="primary" plain @click="handleLogin">
+                登录
+              </el-button>
+              <el-button type="primary" @click="handleRegister">
+                注册
+              </el-button>
+            </div>
+          </div>
         </div>
       </el-header>
 
@@ -55,11 +65,22 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useRoute } from 'vue-router'
-import { Document, OfficeBuilding, Box, Calendar } from '@element-plus/icons-vue'
+import { useRoute, useRouter } from 'vue-router'
+import { Document, HomeFilled, Box, QuestionFilled } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
 
 const route = useRoute()
+const router = useRouter()
 const activeMenu = computed(() => route.path)
+
+const handleLogin = () => {
+  ElMessage.info('请使用首页登录功能')
+  router.push('/')
+}
+
+const handleRegister = () => {
+  ElMessage.info('注册功能开发中...')
+}
 </script>
 
 <style scoped lang="scss">
@@ -143,6 +164,57 @@ const activeMenu = computed(() => route.path)
   padding: 0 30px;
   max-width: 1400px;
   margin: 0 auto;
+  gap: 20px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  margin-left: 10px;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    
+    .el-button {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    flex-wrap: wrap;
+    padding: 0 15px;
+  }
+
+  .title {
+    font-size: 18px !important;
+  }
+
+  .logo-icon {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .header-menu {
+    :deep(.el-menu-item) {
+      margin: 0 4px;
+      font-size: 14px;
+      padding: 0 12px !important;
+    }
+  }
 }
 
 .logo-section {

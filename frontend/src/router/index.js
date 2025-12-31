@@ -4,7 +4,11 @@ import LaboratoryList from '@/views/LaboratoryList.vue'
 const routes = [
   {
     path: '/',
-    redirect: '/laboratories'
+    name: 'Home',
+    component: () => import('@/views/Home.vue'),
+    meta: {
+      title: '首页'
+    }
   },
   {
     path: '/laboratories',
@@ -38,7 +42,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title ? `${to.meta.title} - 高校仪器预约系统` : '高校仪器预约系统'
+  document.title = to.meta.title ? `${to.meta.title} - 高校大型仪器设备共享服务平台` : '高校大型仪器设备共享服务平台'
   next()
 })
 
